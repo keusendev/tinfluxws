@@ -22,10 +22,13 @@ services:
   # env_file:
     # - ./docker.env
     
-    networks:
-      - backend
+    secrets:
+      - influxuser
+      - influxpassword
 
-networks:
-  backend:
-    name: backend
-    driver: bridge
+# File based docker secrets (if not in swarm mode):
+secrets:
+  influxuser:
+    file: ./dbusername
+  influxpassword:
+    file: ./dbpassword
