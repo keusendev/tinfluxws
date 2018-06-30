@@ -34,11 +34,11 @@ The TinFluxWS image uses several environment variables to automatically configur
 
 ##### TRIFLUXWS_STATIONNAME
 
-Adds a name to the TinFluxWStaion. This name will also be the measurement name within the privided InfluxDB database. 
+Adds a name to the TinFluxWStaion. This name will also be the measurement name within the provided InfluxDB database. 
 
 ##### TRIFLUXWS_MASTERBRICK_HOST
 
-Lets the application know on whicht IP/Hostname the Master Brick can be found.  
+Lets the application know on which IP/Hostname the Master Brick can be found.  
 
 ##### TRIFLUXWS_MASTERBRICK_PORT
 
@@ -56,13 +56,13 @@ The Influx database name. In this DB will measurements be placed.
 
 Influx user with write permissions
 
-__Consoder using env-files or docker secrets for storing this sensitiv data!__ 
+__Consider using env-files or docker secrets for storing this sensitive data!__ 
 
 ##### TRIFLUXWS_INFLUXDB_PASSWD
 
 Influx user's password
 
-__Consoder using env-files or docker secrets for storing this sensitiv data!__
+__Consider using env-files or docker secrets for storing this sensitive data!__
 
 
 # Docker-Compose example file
