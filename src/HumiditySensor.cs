@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Tinkerforge;
+﻿using Tinkerforge;
 
 namespace TinfluxWeatherStation
 {
@@ -26,8 +25,7 @@ namespace TinfluxWeatherStation
         private static async void BrickletCb(BrickletHumidity sender, int rawValue)
         {
             var value = CalculateValue(rawValue);
-
-            Debug.Assert(_tinfluxWeatherStation != null, nameof(_tinfluxWeatherStation) + " != null");
+            _tinfluxWeatherStation.LastMeasuredHumidity = value;
             await _tinfluxWeatherStation.WriteToInfluxDb(SensorTyp, SensorUnit, SensorUnitName, value);
         }
 

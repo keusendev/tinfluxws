@@ -21,6 +21,10 @@ namespace TinfluxWeatherStation
         private readonly int _masterBrickPort;
         private int Callbackperiod { get; }
 
+        public double LastMeasuredTemperature { private get; set; } = -1000;
+        public double LastMeasuredHumidity { private get; set; } = -1000;
+        public double LastMeasuredAirPressure { private get; set; } = -1000;
+
 
         public Station(string masterBrickHost, int masterBrickPort, string stationName,
             string influxUri, string influxDb, string influxUser, string influxPassword, int callbackperiod)
@@ -81,6 +85,9 @@ namespace TinfluxWeatherStation
             {
                 EnumerateSensores();
                 PrintAllEnumeratedSensors();
+
+                Task.Run(() => StartAirCalculationWorker());
+
                 Console.WriteLine($"Application with Station \"{StationName}\" is started...");
                 Thread.Sleep(Timeout.Infinite);
             }
@@ -154,6 +161,27 @@ namespace TinfluxWeatherStation
             return false;
         }
 
+
+        [SuppressMessage("ReSharper", "FunctionNeverReturns")]
+        private async Task StartAirCalculationWorker()
+        {
+            while (true)
+            {
+                Console.WriteLine("Woker is running");
+                if (Math.Abs(LastMeasuredAirPressure - (-1000)) > 10 &&
+                    Math.Abs(LastMeasuredHumidity - (-1000)) > 10 &&
+                    Math.Abs(LastMeasuredTemperature - (-1000)) > 10)
+                {
+                    await CalculateAndWriteAirRelatedStuff(
+                        LastMeasuredTemperature,
+                        LastMeasuredHumidity,
+                        LastMeasuredAirPressure);
+                }
+
+                Thread.Sleep(Callbackperiod + 5000);
+            }
+        }
+
         public override string ToString()
         {
             return StationName;
@@ -175,7 +203,7 @@ namespace TinfluxWeatherStation
          */
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         [SuppressMessage("ReSharper", "HeapView.BoxingAllocation")]
-        public static void CalculateAndWriteAirRelatedStuff(double temperature, double relativeHumidity,
+        private async Task CalculateAndWriteAirRelatedStuff(double temperature, double relativeHumidity,
             double airPressure)
         {
             /* Unit declation
@@ -189,7 +217,7 @@ namespace TinfluxWeatherStation
             double T = 273.15 + T_c; // Temperature [K]
             double p = 100.0 * airPressure; // Pressure [Pa]
             double phi = relativeHumidity / 100.0;
-            double phi_max = 1;
+            double phi_max = 1.0;
 
             // Saturation vapor pressure over water [Pa] (Magnus-Formula)
             const double magnus_coefficient = 611.2; // [Pa]
@@ -233,8 +261,8 @@ namespace TinfluxWeatherStation
                         "e", new Dictionary<string, object>
                         {
                             {"name", "Water vapor partial pressure"},
-                            {"unit", "Pa"},
-                            {"value", RoundToThreeSig(e)}
+                            {"unit", "hPa"},
+                            {"value", RoundToThreeSig(e / 100)}
                         }
                     },
                     {
@@ -303,9 +331,12 @@ namespace TinfluxWeatherStation
                     }
                 };
 
+            const string sensorTyp = "CALCULATOR";
             foreach (var entry in allResults)
             {
                 Console.WriteLine($"{entry.Value["name"]}: {entry.Value["value"]}{entry.Value["unit"]}");
+                await WriteToInfluxDb(sensorTyp, (string) entry.Value["unit"], (string) entry.Value["name"],
+                    (double) entry.Value["value"]);
             }
         }
     }
