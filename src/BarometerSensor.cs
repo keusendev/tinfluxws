@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
-using Tinkerforge;
+﻿using Tinkerforge;
 
 namespace TinfluxWeatherStation
 {
     public class BarometerSensor : ISensor
     {
         private const string SensorTyp = "BAROMETER";
-        private const string SensorUnit = "mbar";
+        private const string SensorUnit = "hPa";
         private const string SensorUnitName = "Air Pressure";
         private static Station _tinfluxWeatherStation;
 
@@ -26,8 +25,7 @@ namespace TinfluxWeatherStation
         private static async void BrickletCb(BrickletBarometer sender, int rawValue)
         {
             var value = CalculateValue(rawValue);
-
-            Debug.Assert(_tinfluxWeatherStation != null, nameof(_tinfluxWeatherStation) + " != null");
+            _tinfluxWeatherStation.LastMeasuredAirPressure = value;
             await _tinfluxWeatherStation.WriteToInfluxDb(SensorTyp, SensorUnit, SensorUnitName, value);
         }
 

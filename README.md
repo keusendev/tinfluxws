@@ -3,6 +3,23 @@ The Tinkerforge InfluxDB Weather Station. Short: TinFluxWS
 
 ## What for
 This tiny docker image will collect periodically [Tinkerforge](https://www.tinkerforge.com/) sensor values and saves them into a InfluxDB.
+
+As a nice feature, since version 1.6, TinFluxWS calculates things like:
+* Saturation vapor pressure
+* Water vapor partial pressure
+* Specific humidity
+* Max specific humidity
+* Mixing ratio - moisture level
+* Dense water vapor
+* Dense dry air
+* Dense humid air
+* Dew point temperature
+* Absolute humidity
+
+__Please keep in mind that these calculations require a temperature, humidity and air pressure Bricklet!__ 
+
+### Graphing
+
 Thanks to the amazing [Grafana project](https://grafana.com/) you can graph then the measured sensor values.
 
 ## Currently supported Tinkerforge Bricklets
@@ -15,7 +32,8 @@ The sensors will automatically be detected.
 
 ## Supported tags and respective ```Dockerfile``` links
 
--	[`1.5`, `latest` (*TinFluxWS/1.5/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.5/Dockerfile)
+-	[`1.6`, `latest` (*TinFluxWS/1.6/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.6/Dockerfile)
+-	[`1.5` (*TinFluxWS/1.5/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.5/Dockerfile)
 
 
 
@@ -112,5 +130,6 @@ As for any pre-built image usage, it is the image user's responsibility to ensur
 
 
 # Versions
+* __02.07.2018__: New air calculation features like absolute humidity added (1.6)
 * __30.06.2018__: Initial public release (1.5)
 
