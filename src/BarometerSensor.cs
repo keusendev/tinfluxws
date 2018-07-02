@@ -6,7 +6,7 @@ namespace TinfluxWeatherStation
     public class BarometerSensor : ISensor
     {
         private const string SensorTyp = "BAROMETER";
-        private const string SensorUnit = "mbar";
+        private const string SensorUnit = "hPar";
         private const string SensorUnitName = "Air Pressure";
         private static Station _tinfluxWeatherStation;
 
