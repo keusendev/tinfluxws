@@ -12,6 +12,7 @@ namespace TinfluxWeatherStation
         private static string _masterBrickHost;
         private static int _masterBrickTcpPort;
         private static int _callbackPeriod;
+        private static int _altitudeOffset;
         private static string _influxDbHostUri;
         private static string _influxDbName;
         private static string _influxDbUser;
@@ -43,6 +44,9 @@ namespace TinfluxWeatherStation
                     {
                         _callbackPeriod = -1;
                     }
+
+                    var altitudeOffset = Environment.GetEnvironmentVariable("TINFLUXWS_ALTITUDEOFFSET");
+                    _altitudeOffset = altitudeOffset != null ? int.Parse(callbackPeriod) : 0;
 
                     _influxDbHostUri = Environment.GetEnvironmentVariable("TINFLUXWS_INFLUXDB_HOST_URI");
                     _influxDbName = Environment.GetEnvironmentVariable("TINFLUXWS_INFLUXDB_NAME");
@@ -102,6 +106,20 @@ namespace TinfluxWeatherStation
                     StartStation();
                     break;
 
+                case 9:
+                    Console.WriteLine("Starting program with CLI args...");
+                    _stationName = args[0];
+                    _masterBrickHost = args[1];
+                    _masterBrickTcpPort = int.Parse(args[2]);
+                    _influxDbHostUri = args[3];
+                    _influxDbName = args[4];
+                    _influxDbUser = args[5];
+                    _influxDbPasswd = args[6];
+                    _callbackPeriod = int.Parse(args[7]);
+                    _altitudeOffset = int.Parse(args[8]);
+                    StartStation();
+                    break;
+
                 default:
                     Console.WriteLine("Arguments not OK!");
                     break;
@@ -111,7 +129,7 @@ namespace TinfluxWeatherStation
         private static void PrintSettings()
         {
             var passwdStars = string.Concat(Enumerable.Repeat("*", _influxDbPasswd.Length));
-            
+
             Console.WriteLine("");
             Console.WriteLine($"Station name:      {_stationName}");
             Console.WriteLine($"Master Brick Host: {_masterBrickHost}:{_masterBrickTcpPort.ToString()}");
@@ -119,6 +137,7 @@ namespace TinfluxWeatherStation
             Console.WriteLine($"InfluxDB User:     {_influxDbUser}");
             Console.WriteLine($"InflusDB Passwd:   {passwdStars}");
             Console.WriteLine($"Callback period:   {_callbackPeriod.ToString()}sec");
+            Console.WriteLine($"Altitude Offset:   {_altitudeOffset.ToString()}m");
             Console.WriteLine("");
         }
 
@@ -133,7 +152,7 @@ namespace TinfluxWeatherStation
         {
             PrintSettings();
             var station = new Station(_masterBrickHost, _masterBrickTcpPort, _stationName, _influxDbHostUri,
-                _influxDbName, _influxDbUser, _influxDbPasswd, _callbackPeriod);
+                _influxDbName, _influxDbUser, _influxDbPasswd, _callbackPeriod, _altitudeOffset);
 
             station.SetupAndStartStation();
         }

@@ -20,6 +20,7 @@ namespace TinfluxWeatherStation
         private readonly string _masterBrickHost;
         private readonly int _masterBrickPort;
         private int Callbackperiod { get; }
+        private int AltitudeOffset { get; }
 
         public double LastMeasuredTemperature { private get; set; } = -1000;
         public double LastMeasuredHumidity { private get; set; } = -1000;
@@ -27,13 +28,15 @@ namespace TinfluxWeatherStation
 
 
         public Station(string masterBrickHost, int masterBrickPort, string stationName,
-            string influxUri, string influxDb, string influxUser, string influxPassword, int callbackperiod)
+            string influxUri, string influxDb, string influxUser, string influxPassword, int callbackperiod,
+            int altitudeOffset = 0)
         {
             _masterBrickHost = masterBrickHost;
             _masterBrickPort = masterBrickPort;
             StationName = stationName;
             _influxClient = new LineProtocolClient(new Uri(influxUri), influxDb, influxUser, influxPassword);
             _sensors = new List<ISensor>();
+            AltitudeOffset = altitudeOffset;
             if (callbackperiod == -1)
             {
                 Callbackperiod = 5000;
@@ -116,7 +119,7 @@ namespace TinfluxWeatherStation
                 new Dictionary<string, object>
                 {
                     // ReSharper disable once HeapView.BoxingAllocation
-                    {"value", sensorValue},
+                    {"value", sensorValue}
                 },
                 new Dictionary<string, string>
                 {
@@ -246,6 +249,11 @@ namespace TinfluxWeatherStation
 
             double m = (rho_wv / rho_da); // Mixing ratio - moisture level
 
+            const double p_0 = 101325.0; // Pressure at sealevel [Pa] 
+            const double temperatureGradients = 5.255;
+            const double a = 0.0065; // Vertical temperature gradient [K/m]
+            double h = (Math.Pow((p_0 / p), (1 / temperatureGradients)) - 1) * (T / a);
+
             var allResults =
                 new Dictionary<string, Dictionary<string, object>>
                 {
@@ -327,6 +335,14 @@ namespace TinfluxWeatherStation
                             {"name", "Absolute humidity"},
                             {"unit", "g/m³"},
                             {"value", RoundToThreeSig(rho_wv * 1000)}
+                        }
+                    },
+                    {
+                        "h", new Dictionary<string, object>
+                        {
+                            {"name", "Altitude"},
+                            {"unit", "m"},
+                            {"value", RoundToThreeSig(h + AltitudeOffset)}
                         }
                     }
                 };
