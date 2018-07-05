@@ -25,16 +25,16 @@ namespace TinfluxWeatherStation
             {
                 case 0:
                     Console.WriteLine("Starting program with ENV...");
-                    _stationName = Environment.GetEnvironmentVariable("TRIFLUXWS_STATIONNAME");
-                    _masterBrickHost = Environment.GetEnvironmentVariable("TRIFLUXWS_MASTERBRICK_HOST");
+                    _stationName = Environment.GetEnvironmentVariable("TINFLUXWS_STATIONNAME");
+                    _masterBrickHost = Environment.GetEnvironmentVariable("TINFLUXWS_MASTERBRICK_HOST");
 
-                    var masterBrickTcpPort = Environment.GetEnvironmentVariable("TRIFLUXWS_MASTERBRICK_PORT");
+                    var masterBrickTcpPort = Environment.GetEnvironmentVariable("TINFLUXWS_MASTERBRICK_PORT");
                     if (masterBrickTcpPort != null)
                     {
                         _masterBrickTcpPort = int.Parse(masterBrickTcpPort);
                     }
 
-                    var callbackPeriod = Environment.GetEnvironmentVariable("TRIFLUXWS_CALLBACKPERIOD");
+                    var callbackPeriod = Environment.GetEnvironmentVariable("TINFLUXWS_CALLBACKPERIOD");
                     if (callbackPeriod != null)
                     {
                         _callbackPeriod = int.Parse(callbackPeriod);
@@ -44,8 +44,8 @@ namespace TinfluxWeatherStation
                         _callbackPeriod = -1;
                     }
 
-                    _influxDbHostUri = Environment.GetEnvironmentVariable("TRIFLUXWS_INFLUXDB_HOST_URI");
-                    _influxDbName = Environment.GetEnvironmentVariable("TRIFLUXWS_INFLUXDB_NAME");
+                    _influxDbHostUri = Environment.GetEnvironmentVariable("TINFLUXWS_INFLUXDB_HOST_URI");
+                    _influxDbName = Environment.GetEnvironmentVariable("TINFLUXWS_INFLUXDB_NAME");
 
                     if (_influxDbName == null || _influxDbHostUri == null || _masterBrickHost == null ||
                         _stationName == null || _stationName.Length < 1 || _masterBrickHost.Length < 1 ||
@@ -63,9 +63,9 @@ namespace TinfluxWeatherStation
                     _influxDbPasswd = ReadSecretFile(passwordSecretFile);
 
                     if (_influxDbUser == null)
-                        _influxDbUser = Environment.GetEnvironmentVariable("TRIFLUXWS_INFLUXDB_USER");
+                        _influxDbUser = Environment.GetEnvironmentVariable("TINFLUXWS_INFLUXDB_USER");
                     if (_influxDbPasswd == null)
-                        _influxDbPasswd = Environment.GetEnvironmentVariable("TRIFLUXWS_INFLUXDB_PASSWD");
+                        _influxDbPasswd = Environment.GetEnvironmentVariable("TINFLUXWS_INFLUXDB_PASSWD");
 
                     if (_influxDbPasswd != null &&
                         (_influxDbUser != null && (_influxDbUser.Length < 1 || _influxDbPasswd.Length < 1)))

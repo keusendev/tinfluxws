@@ -50,33 +50,33 @@ The sensors will automatically be detected.
 ## Configuration
 The TinFluxWS image uses several environment variables to automatically configure certain parts of the application. They may significantly aid you in using this image.
 
-##### TRIFLUXWS_STATIONNAME
+##### TINFLUXWS_STATIONNAME
 
 Adds a name to the TinFluxWStaion. This name will also be the measurement name within the provided InfluxDB database. 
 
-##### TRIFLUXWS_MASTERBRICK_HOST
+##### TINFLUXWS_MASTERBRICK_HOST
 
 Lets the application know on which IP/Hostname the Master Brick can be found.  
 
-##### TRIFLUXWS_MASTERBRICK_PORT
+##### TINFLUXWS_MASTERBRICK_PORT
 
 The TCP port on which the Master Brick will listen. 
 
-##### TRIFLUXWS_INFLUXDB_HOST_URI
+##### TINFLUXWS_INFLUXDB_HOST_URI
 
 The URI to connect to the Influx RESTful API
 
-##### TRIFLUXWS_INFLUXDB_NAME
+##### TINFLUXWS_INFLUXDB_NAME
 
 The Influx database name. In this DB will measurements be placed. 
 
-##### TRIFLUXWS_INFLUXDB_USER
+##### TINFLUXWS_INFLUXDB_USER
 
 Influx user with write permissions
 
 __Consider using env-files or docker secrets for storing this sensitive data!__ 
 
-##### TRIFLUXWS_INFLUXDB_PASSWD
+##### TINFLUXWS_INFLUXDB_PASSWD
 
 Influx user's password
 
@@ -94,16 +94,16 @@ services:
     container_name: tinfluxws
     restart: always
     environment:
-      - TRIFLUXWS_STATIONNAME=myWeatherStationName
-      - TRIFLUXWS_MASTERBRICK_HOST=masterb.domain.local
-      - TRIFLUXWS_MASTERBRICK_PORT=4223
-      - TRIFLUXWS_INFLUXDB_HOST_URI=https://influxhost.domain.local:443
-      - TRIFLUXWS_INFLUXDB_NAME=myInfluxDB
+      - TINFLUXWS_STATIONNAME=myWeatherStationName
+      - TINFLUXWS_MASTERBRICK_HOST=masterb.domain.local
+      - TINFLUXWS_MASTERBRICK_PORT=4223
+      - TINFLUXWS_INFLUXDB_HOST_URI=https://influxhost.domain.local:443
+      - TINFLUXWS_INFLUXDB_NAME=myInfluxDB
       
     # Because of security reasons, the following env variables should be placed in a separate .env file.
     # Even better use Docker secrets: https://docs.docker.com/engine/swarm/secrets/
-    # - TRIFLUXWS_INFLUXDB_USER=
-    # - TRIFLUXWS_INFLUXDB_PASSWD=
+    # - TINFLUXWS_INFLUXDB_USER=
+    # - TINFLUXWS_INFLUXDB_PASSWD=
     
   # env_file:
     # - ./docker.env
