@@ -96,7 +96,7 @@ Influx user's password
 
 **Consider using env-files or docker secrets for storing this sensitive data!**
 
-## Docker-Compose example file
+### Docker-Compose example file
 
 ```YAML
 version: "3.5"
