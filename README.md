@@ -59,38 +59,38 @@ The TinFluxWS image uses several environment variables to automatically configur
 
 Adds a name to the TinFluxWStaion. This name will also be the measurement name within the provided InfluxDB database.
 
-##### TINFLUXWS_MASTERBRICK_HOST
+#### TINFLUXWS_MASTERBRICK_HOST
 
 Lets the application know on which IP/Hostname the Master Brick can be found.
 
-##### TINFLUXWS_MASTERBRICK_PORT
+#### TINFLUXWS_MASTERBRICK_PORT
 
 The TCP port on which the Master Brick will listen.
 
-##### TINFLUXWS_CALLBACKPERIOD
+#### TINFLUXWS_CALLBACKPERIOD
 
 Sets the frequent (as integer in seconds) for measuring the environment.
 
-##### TINFLUXWS_ALTITUDEOFFSET
+#### TINFLUXWS_ALTITUDEOFFSET
 
 Sets the offset (can be a negative or positive integer) for the altitude calculation.
 This may be necessary because the calculation works with approximations constants.
 
-##### TINFLUXWS_INFLUXDB_HOST_URI
+#### TINFLUXWS_INFLUXDB_HOST_URI
 
 The URI to connect to the Influx RESTful API
 
-##### TINFLUXWS_INFLUXDB_NAME
+#### TINFLUXWS_INFLUXDB_NAME
 
 The Influx database name. In this DB will measurements be placed.
 
-##### TINFLUXWS_INFLUXDB_USER
+#### TINFLUXWS_INFLUXDB_USER
 
 Influx user with write permissions
 
 **Consider using env-files or docker secrets for storing this sensitive data!**
 
-##### TINFLUXWS_INFLUXDB_PASSWD
+#### TINFLUXWS_INFLUXDB_PASSWD
 
 Influx user's password
 
