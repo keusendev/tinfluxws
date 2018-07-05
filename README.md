@@ -4,7 +4,7 @@ The Tinkerforge InfluxDB Weather Station. Short: TinFluxWS
 ## What for
 This tiny docker image will collect periodically [Tinkerforge](https://www.tinkerforge.com/) sensor values and saves them into a InfluxDB.
 
-As a nice feature, since version 1.6, TinFluxWS calculates things like:
+As a nice feature, since version 1.7, TinFluxWS calculates things like:
 * Saturation vapor pressure
 * Water vapor partial pressure
 * Specific humidity
@@ -15,6 +15,7 @@ As a nice feature, since version 1.6, TinFluxWS calculates things like:
 * Dense humid air
 * Dew point temperature
 * Absolute humidity
+* Altitude (with offset possibility - see TINFLUXWS_ALTITUDEOFFSET env. var.)
 
 __Please keep in mind that these calculations require a temperature, humidity and air pressure Bricklet!__ 
 
@@ -27,12 +28,13 @@ Thanks to the amazing [Grafana project](https://grafana.com/) you can graph then
 * [Humidity Bricklet V1](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Humidity.html)
 * [Barometer Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Barometer.html)
 
-The sensors will automatically be detected.
+These sensors will automatically be detected.
 
 
 ## Supported tags and respective ```Dockerfile``` links
 
--	[`1.6`, `latest` (*TinFluxWS/1.6/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.6/Dockerfile)
+-	[`1.7`, `latest` (*TinFluxWS/1.6/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.7/Dockerfile)
+-	[`1.6` (*TinFluxWS/1.6/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.6/Dockerfile)
 -	[`1.5` (*TinFluxWS/1.5/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.5/Dockerfile)
 
 
@@ -61,6 +63,15 @@ Lets the application know on which IP/Hostname the Master Brick can be found.
 ##### TINFLUXWS_MASTERBRICK_PORT
 
 The TCP port on which the Master Brick will listen. 
+
+##### TINFLUXWS_CALLBACKPERIOD
+
+Sets the frequent (as integer in seconds) for measuring the environment.
+
+##### TINFLUXWS_ALTITUDEOFFSET
+
+Sets the offset (can be a negative or positive integer) for the altitude calculation.
+This may be necessary because the calculation works with approximations constants.
 
 ##### TINFLUXWS_INFLUXDB_HOST_URI
 
@@ -97,6 +108,8 @@ services:
       - TINFLUXWS_STATIONNAME=myWeatherStationName
       - TINFLUXWS_MASTERBRICK_HOST=masterb.domain.local
       - TINFLUXWS_MASTERBRICK_PORT=4223
+      - TINFLUXWS_CALLBACKPERIOD=300
+      - TINFLUXWS_ALTITUDEOFFSET=29
       - TINFLUXWS_INFLUXDB_HOST_URI=https://influxhost.domain.local:443
       - TINFLUXWS_INFLUXDB_NAME=myInfluxDB
       
@@ -130,6 +143,7 @@ As for any pre-built image usage, it is the image user's responsibility to ensur
 
 
 # Versions
+* __05.07.2018__: Add altitude calculation and some code refactoring (1.7)
 * __02.07.2018__: New air calculation features like absolute humidity added (1.6)
 * __30.06.2018__: Initial public release (1.5)
 
