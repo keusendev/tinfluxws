@@ -33,7 +33,7 @@ These sensors will automatically be detected.
 
 ## Supported tags and respective ```Dockerfile``` links
 
--	[`1.7`, `latest` (*TinFluxWS/1.6/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.7/Dockerfile)
+-	[`1.7`, `latest` (*TinFluxWS/1.7/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.7/Dockerfile)
 -	[`1.6` (*TinFluxWS/1.6/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.6/Dockerfile)
 -	[`1.5` (*TinFluxWS/1.5/Dockerfile*)](https://github.com/akeusen/tinfluxws/blob/1.5/Dockerfile)
 
