@@ -3,7 +3,7 @@ using Tinkerforge;
 namespace TinfluxWeatherStation
 {
     /*
-     * The UVSensor class
+     * The UVSensor class 
      * Wraps the Tinkerforge Temperature Bricklet class.
      */
     public class UVLightSensor : ISensor
