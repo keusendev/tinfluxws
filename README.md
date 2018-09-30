@@ -6,7 +6,17 @@ The Tinkerforge InfluxDB Weather Station. Short: TinFluxWS
 
 This tiny docker image will collect periodically [Tinkerforge](https://www.tinkerforge.com/) sensor values and saves them into a InfluxDB.
 
-As a nice feature, since version 1.7.x, TinFluxWS calculates things like:
+## Supported Tinkerforge Bricklets
+
+- [Temperature Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Temperature.html)
+- [Humidity Bricklet V1](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Humidity.html)
+- [Barometer Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Barometer.html)
+- [UV Light Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/UV_Light.html)
+
+Sensors will automatically be detected.
+
+
+**As a nice feature, since version 1.7.x, TinFluxWS calculates things like:**
 
 - Saturation vapor pressure
 - Water vapor partial pressure
@@ -26,17 +36,10 @@ As a nice feature, since version 1.7.x, TinFluxWS calculates things like:
 
 Thanks to the amazing [Grafana project](https://grafana.com/) you can graph then the measured sensor values.
 
-## Currently supported Tinkerforge Bricklets
-
-- [Temperature Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Temperature.html)
-- [Humidity Bricklet V1](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Humidity.html)
-- [Barometer Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Barometer.html)
-
-These sensors will automatically be detected.
-
 ## Supported tags and respective `Dockerfile` links
 
-- [`1.7.1`, `1.7`, `latest` (_TinFluxWS/v1.7.1/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.7.1/Dockerfile)
+- [`1.8.0`, `1.8`, `latest` (_TinFluxWS/v1.8.0/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.8.0/Dockerfile)
+- [`1.7.1`, `1.7` (_TinFluxWS/v1.7.1/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.7.1/Dockerfile)
 - [`1.6` (_TinFluxWS/v1.6/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.6/Dockerfile)
 - [`1.5` (_TinFluxWS/v1.5/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.5/Dockerfile)
 
@@ -145,6 +148,7 @@ As for any pre-built image usage, it is the image user's responsibility to ensur
 
 ## Versions
 
+- **30.09.2018**: Add UV Light sensor (1.8.0)
 - **05.07.2018**: minor fixes (1.7.1)
 - **05.07.2018**: Add altitude calculation and some code refactoring (1.7)
 - **02.07.2018**: New air calculation features like absolute humidity added (1.6)

@@ -18,13 +18,14 @@ namespace TinfluxWeatherStation
         private string StationName { get; }
         private IPConnection _ipConnection;
         private readonly string _masterBrickHost;
-        private readonly int _masterBrickPort;
+        private readonly int _masterBrickPort;        
         private int Callbackperiod { get; }
         private int AltitudeOffset { get; }
 
         public double LastMeasuredTemperature { private get; set; } = -1000;
         public double LastMeasuredHumidity { private get; set; } = -1000;
         public double LastMeasuredAirPressure { private get; set; } = -1000;
+        public double LastMeasuredUVLight { private get; set; } = -1000;
 
 
         public Station(string masterBrickHost, int masterBrickPort, string stationName,
@@ -69,6 +70,11 @@ namespace TinfluxWeatherStation
             if (deviceIdentifier == BrickletBarometer.DEVICE_IDENTIFIER)
             {
                 _sensors.Add(new BarometerSensor(_ipConnection, uid, Callbackperiod, this));
+            }
+            
+            if (deviceIdentifier == BrickletUVLight.DEVICE_IDENTIFIER)
+            {
+                _sensors.Add(new UVLightSensor(_ipConnection, uid, Callbackperiod, this));
             }
         }
 
@@ -170,7 +176,7 @@ namespace TinfluxWeatherStation
         {
             while (true)
             {
-                Console.WriteLine("Woker is running");
+                Console.WriteLine("Worker is running");
                 if (Math.Abs(LastMeasuredAirPressure - (-1000)) > 10 &&
                     Math.Abs(LastMeasuredHumidity - (-1000)) > 10 &&
                     Math.Abs(LastMeasuredTemperature - (-1000)) > 10)
