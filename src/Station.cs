@@ -176,7 +176,7 @@ namespace TinfluxWeatherStation
         {
             while (true)
             {
-                Console.WriteLine("Woker is running");
+                Console.WriteLine("Worker is running");
                 if (Math.Abs(LastMeasuredAirPressure - (-1000)) > 10 &&
                     Math.Abs(LastMeasuredHumidity - (-1000)) > 10 &&
                     Math.Abs(LastMeasuredTemperature - (-1000)) > 10)
