@@ -38,10 +38,11 @@ Thanks to the amazing [Grafana project](https://grafana.com/) you can graph then
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`1.8.0`, `1.8`, `latest` (_TinFluxWS/v1.8.0/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.8.0/Dockerfile)
-- [`1.7.1`, `1.7` (_TinFluxWS/v1.7.1/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.7.1/Dockerfile)
-- [`1.6` (_TinFluxWS/v1.6/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.6/Dockerfile)
-- [`1.5` (_TinFluxWS/v1.5/Dockerfile_)](https://github.com/akeusen/tinfluxws/blob/v1.5/Dockerfile)
+- [`1.8.1`, `1.8`, `latest` (_TinFluxWS/v1.8.1/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.8.1/Dockerfile)
+- [`1.8.0`, `1.8` (_TinFluxWS/v1.8.0/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.8.0/Dockerfile)
+- [`1.7.1`, `1.7` (_TinFluxWS/v1.7.1/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.7.1/Dockerfile)
+- [`1.6` (_TinFluxWS/v1.6/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.6/Dockerfile)
+- [`1.5` (_TinFluxWS/v1.5/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.5/Dockerfile)
 
 ## Using this Image
 
@@ -148,6 +149,7 @@ As for any pre-built image usage, it is the image user's responsibility to ensur
 
 ## Versions
 
+- **13.04.2019**: New github location (1.8.1)
 - **30.09.2018**: Add UV Light sensor (1.8.0)
 - **05.07.2018**: minor fixes (1.7.1)
 - **05.07.2018**: Add altitude calculation and some code refactoring (1.7)
