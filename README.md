@@ -12,6 +12,7 @@ This tiny docker image will collect periodically [Tinkerforge](https://www.tinke
 - [Humidity Bricklet V1](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Humidity.html)
 - [Barometer Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Barometer.html)
 - [UV Light Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/UV_Light.html)
+- [Moisture Bricklet](https://www.tinkerforge.com/en/doc/Hardware/Bricklets/Moisture.html)
 
 Sensors will automatically be detected.
 
@@ -38,7 +39,8 @@ Thanks to the amazing [Grafana project](https://grafana.com/) you can graph then
 
 ## Supported tags and respective `Dockerfile` links
 
-- [`1.8.1`, `1.8`, `latest` (_TinFluxWS/v1.8.1/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.8.1/Dockerfile)
+- [`1.9.0`, `1.9`, `latest` (_TinFluxWS/v1.9.0/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.9.0/Dockerfile)
+- [`1.8.1`, `1.8` (_TinFluxWS/v1.8.1/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.8.1/Dockerfile)
 - [`1.8.0`, `1.8` (_TinFluxWS/v1.8.0/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.8.0/Dockerfile)
 - [`1.7.1`, `1.7` (_TinFluxWS/v1.7.1/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.7.1/Dockerfile)
 - [`1.6` (_TinFluxWS/v1.6/Dockerfile_)](https://github.com/keusendev/tinfluxws/blob/v1.6/Dockerfile)
@@ -107,7 +109,7 @@ version: "3.5"
 
 services:
   tinfluxweatherstation:
-    image: akeusen/tinfluxws:latest
+    image: keusendev/tinfluxws:latest
     container_name: tinfluxws
     restart: always
     environment:
@@ -149,6 +151,7 @@ As for any pre-built image usage, it is the image user's responsibility to ensur
 
 ## Versions
 
+- **04.05.2019**: Add Moisture sensor, switched to dotnet core 2.2 (1.9.0)
 - **13.04.2019**: New github location (1.8.1)
 - **30.09.2018**: Add UV Light sensor (1.8.0)
 - **05.07.2018**: minor fixes (1.7.1)
