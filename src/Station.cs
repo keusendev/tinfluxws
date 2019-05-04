@@ -23,6 +23,7 @@ namespace TinfluxWeatherStation
         private int AltitudeOffset { get; }
 
         public double LastMeasuredTemperature { private get; set; } = -1000;
+        public double LastMeasuredMoisture { private get; set; } = -1000;
         public double LastMeasuredHumidity { private get; set; } = -1000;
         public double LastMeasuredAirPressure { private get; set; } = -1000;
         public double LastMeasuredUVLight { private get; set; } = -1000;
@@ -75,6 +76,11 @@ namespace TinfluxWeatherStation
             if (deviceIdentifier == BrickletUVLight.DEVICE_IDENTIFIER)
             {
                 _sensors.Add(new UVLightSensor(_ipConnection, uid, Callbackperiod, this));
+            }
+
+            if (deviceIdentifier == BrickletMoisture.DEVICE_IDENTIFIER)
+            {
+                _sensors.Add(new MoistureSensor(_ipConnection, uid, Callbackperiod, this));
             }
         }
 
